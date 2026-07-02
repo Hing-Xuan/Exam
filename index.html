@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>焦作市教育局中招成绩查询</title>
   <style>
-    /* 基础样式重置 */
     * {
       margin: 0;
       padding: 0;
@@ -20,7 +19,6 @@
       min-height: 100vh;
     }
 
-    /* 头部样式 */
     .page-header {
       background-color: #2c7a5a;
       color: white;
@@ -34,14 +32,12 @@
       font-weight: 500;
     }
 
-    /* 主体内容容器 */
     .main-container {
       max-width: 1200px;
       margin: 2rem auto;
       padding: 0 1rem;
     }
 
-    /* 双栏布局 */
     .content-wrapper {
       display: flex;
       gap: 2rem;
@@ -54,7 +50,6 @@
       }
     }
 
-    /* 表单区域 */
     .query-form {
       flex: 1;
       background: white;
@@ -71,7 +66,6 @@
       border-bottom: 2px solid #eee;
     }
 
-    /* 表单元素 */
     .form-group {
       margin-bottom: 1.2rem;
     }
@@ -98,7 +92,6 @@
       box-shadow: 0 0 0 3px rgba(44, 122, 90, 0.1);
     }
 
-    /* 查询按钮 */
     .submit-btn {
       width: 100%;
       padding: 0.9rem;
@@ -115,7 +108,6 @@
       background-color: #235f47;
     }
 
-    /* 结果区域 */
     .result-panel {
       flex: 2;
       background: white;
@@ -132,7 +124,6 @@
       min-height: 200px;
     }
 
-    /* 成绩网格布局 */
     .score-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -143,7 +134,6 @@
       border-bottom: 1px solid #eee;
     }
 
-    /* 错误提示 */
     .error-message {
       color: #dc2626;
       padding: 1rem;
@@ -152,7 +142,6 @@
       border-radius: 6px;
     }
 
-    /* 学生信息标题 */
     .student-info-title {
       font-size: 1.1rem;
       color: #2c7a5a;
@@ -160,7 +149,6 @@
       font-weight: 600;
     }
 
-    /* 指定数据特殊样式 */
     .score-value-red {
       color: #dc2626;
       font-weight: bold;
@@ -181,7 +169,6 @@
 
   <main class="main-container">
     <div class="content-wrapper">
-      <!-- 查询表单 -->
       <section class="query-form">
         <h2 class="form-title">查询信息</h2>
         <div class="form-group">
@@ -193,34 +180,28 @@
         </div>
         <div class="form-group">
           <label class="form-label" for="studentId">准考证号：</label>
-          <input type="text" class="form-control" name="id" id="studentId" placeholder="请输入准考证号">
+          <input type="text" class="form-control" id="studentId" placeholder="请输入准考证号">
         </div>
         <div class="form-group">
           <label class="form-label" for="studentName">姓名：</label>
-          <input type="text" class="form-control" name="name" id="studentName" placeholder="请输入姓名">
+          <input type="text" class="form-control" id="studentName" placeholder="请输入姓名">
         </div>
         <button class="submit-btn" onclick="queryResult()">立即查询</button>
       </section>
 
-      <!-- 结果展示 -->
       <section class="result-panel">
         <h2 class="form-title">查询结果</h2>
         <div class="result-content" id="resultBox">
           请先选择年级，输入对应信息后点击查询。
         </div>
-        <div class="verification-section" id="verificationCodeBox"></div>
       </section>
     </div>
   </main>
 
   <script>
-    // ============================================================
-    // 指定准考证号 → 指定测试数据
-    // ============================================================
     var specificStudents = {
-      // 示例：指定准考证号对应指定学生成绩
       "250882161208": {
-        "3": { // 初三
+        "3": {
           headers: ["准考证号", "姓名", "语文", "数学", "英语", "物理", "化学", "道德与法治", "历史", "体育", "实验操作", "处理结果"],
           student: {
             "准考证号": "250882161208",
@@ -237,7 +218,7 @@
             "处理结果": "立刻枪毙！！！"
           }
         },
-        "2": { // 初二
+        "2": {
           headers: ["准考证号", "姓名", "生物", "地理", "祝福"],
           student: {
             "准考证号": "250882161208",
@@ -249,7 +230,7 @@
         }
       },
       "250882160410": {
-        "3": { // 初三
+        "3": {
           headers: ["准考证号", "姓名", "语文", "数学", "英语", "物理", "化学", "道德与法治", "历史", "体育", "实验操作", "总分"],
           student: {
             "准考证号": "250882160410",
@@ -266,8 +247,8 @@
             "总分": "730"
           }
         },
-        "2": { // 初二
-          headers: ["准考证号", "姓名", "我想对你说", "给你打分",],
+        "2": {
+          headers: ["准考证号", "姓名", "我想对你说", "给你打分"],
           student: {
             "准考证号": "250882160410",
             "姓名": "郝欣妍",
@@ -304,9 +285,8 @@
             "总分": "10（只会算两位数的加减）"
           }
         }
-      }
-    },
-    "250882167891": {
+      },
+      "250882167891": {
         "3": {
           headers: ["准考证号", "姓名", "语文", "数学", "英语", "物理", "化学", "道德与法治", "历史", "体育", "实验操作", "总分"],
           student: {
@@ -341,7 +321,6 @@
     // 通用测试数据生成（12位 250882 开头的准考证号）
     // ============================================================
     function generateGenericData(id, grade, name) {
-      // 根据准考证号后6位生成确定性分数，保证同一号码每次查询结果一致
       var seed = 0;
       for (var i = 0; i < id.length; i++) {
         seed = (seed * 31 + id.charCodeAt(i)) & 0x7fffffff;
@@ -349,22 +328,20 @@
 
       function randScore(min, max) {
         seed = (seed * 1103515245 + 12345) & 0x7fffffff;
-        var range = max - min;
-        return min + (seed % (range + 1));
+        return min + (seed % (max - min + 1));
       }
 
       if (grade === "3") {
-        var yu = randScore(90, 118);
+        var yu  = randScore(90, 118);
         var shu = randScore(90, 119);
         var ying = randScore(85, 118);
-        var wu = randScore(75, 98);
+        var wu  = randScore(75, 98);
         var hua = randScore(60, 78);
         var dao = randScore(70, 96);
-        var li = randScore(70, 96);
-        var ti = randScore(55, 70);
+        var li  = randScore(70, 96);
+        var ti  = randScore(55, 70);
         var shi = randScore(22, 30);
         var total = yu + shu + ying + wu + hua + dao + li + ti + shi;
-
         return {
           headers: ["准考证号", "姓名", "语文", "数学", "英语", "物理", "化学", "道德与法治", "历史", "体育", "实验操作", "总分"],
           student: {
@@ -383,16 +360,16 @@
           }
         };
       } else {
-        var shengWu = randScore(38, 50);
-        var diLi = randScore(38, 50);
+        var sw = randScore(38, 50);
+        var dl = randScore(38, 50);
         return {
           headers: ["准考证号", "姓名", "生物", "地理", "总分"],
           student: {
             "准考证号": id,
             "姓名": name,
-            "生物": String(shengWu),
-            "地理": String(diLi),
-            "总分": String(shengWu + diLi)
+            "生物": String(sw),
+            "地理": String(dl),
+            "总分": String(sw + dl)
           }
         };
       }
@@ -403,11 +380,10 @@
     // ============================================================
     function queryResult() {
       var grade = document.getElementById('grade').value;
-      var id = document.getElementById('studentId').value.trim();
-      var name = document.getElementById('studentName').value.trim();
+      var id    = document.getElementById('studentId').value.trim();
+      var name  = document.getElementById('studentName').value.trim();
       var resultBox = document.getElementById('resultBox');
 
-      // 输入校验
       if (!id) {
         resultBox.innerHTML = '<div class="error-message">请输入准考证号</div>';
         return;
@@ -415,47 +391,41 @@
 
       var data = null;
 
-      // 1. 指定准考证号 → 指定测试数据
       if (specificStudents[id] && specificStudents[id][grade]) {
         data = specificStudents[id][grade];
-      }
-      // 2. 12位且以 250882 开头 → 通用测试数据
-      else if (id.length === 12 && id.indexOf("250882") === 0) {
+      } else if (id.length === 12 && id.indexOf("250882") === 0) {
         data = generateGenericData(id, grade, name);
-      }
-      // 3. 不符合条件 → 错误提示
-      else {
+      } else {
         resultBox.innerHTML = '<div class="error-message">未找到该准考证号对应的成绩信息，请检查输入是否正确。</div>';
         return;
       }
 
-      // 渲染成绩
-      var resultHTML = '<div class="student-info-title">成绩详情</div>';
-      resultHTML += '<div class="score-grid">';
-
-      // 指定数据特殊样式配置
-      var specialId = "250882161208";
-      var redValues = ["作弊", "交白卷", "骚扰监考老师", "考试崩屁", "道德败坏", "日本人", "下肢残疾", "上肢残废", "给监考老师配了", "给藏马熊配了", "早生贵子♥️", "缺考", "白卷", "没扫上", "丢了", "吃了", "零素质", "日本入", "霍金", "崩撒卡拉卡", "拉卷子上了", "写的啥呀", "认字儿不", "苹果砸死你", "酒精灯炸死你", "略略略", "日本入", "霍金", "失火", "家里蹲"];
+      // 所有需要特殊样式的数据配置
+      var redValues  = [
+        "作弊", "交白卷", "缺考", "骚扰监考老师", "考试崩屁",
+        "道德败坏", "日本人", "下肢残疾", "上肢残废",
+        "给监考老师配了", "给藏马熊配了",
+        "白卷", "没扫上", "丢了", "吃了", "零素质", "日本入", "霍金",
+        "崩撒卡拉卡", "拉卷子上了", "写的啥呀", "认字儿不",
+        "苹果砸死你", "酒精灯炸死你", "略略略", "失火", "家里蹲",
+        "10（只会算两位数的加减）"
+      ];
       var largeValues = ["立刻枪毙！！！", "大零蛋"];
 
+      var resultHTML = '<div class="student-info-title">成绩详情</div><div class="score-grid">';
       data.headers.forEach(function (header) {
-        var value = data.student[header] !== undefined ? data.student[header] : '';
+        var value     = data.student[header] !== undefined ? data.student[header] : '';
         var valueClass = '';
-
-        // 仅对指定准考证号应用特殊样式
-        if (id === specialId) {
-          if (largeValues.indexOf(value) !== -1) {
-            valueClass = 'score-value-large';
-          } else if (redValues.indexOf(value) !== -1) {
-            valueClass = 'score-value-red';
-          }
+        if (largeValues.indexOf(value) !== -1) {
+          valueClass = 'score-value-large';
+        } else if (redValues.indexOf(value) !== -1) {
+          valueClass = 'score-value-red';
         }
-
         var styleAttr = valueClass ? ' class="' + valueClass + '"' : '';
         resultHTML +=
           '<div class="score-item">' +
-          '<strong>' + header + '：</strong>' +
-          '<span' + styleAttr + '>' + value + '</span>' +
+            '<strong>' + header + '：</strong>' +
+            '<span' + styleAttr + '>' + value + '</span>' +
           '</div>';
       });
       resultHTML += '</div>';
@@ -470,6 +440,5 @@
     <span style="margin: 0 10px;">Edge 80+</span>
     <span style="margin: 0 10px;">Safari 13+</span>
   </footer>
-
 </body>
 </html>
